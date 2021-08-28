@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <script>
+        function initMap(){
+            var options = {
+                zoom: 4, 
+                center: {lat: 20.5937, lng:78.9629}
+            }
+
+            var map = new google.maps.Map(document.getElementById('map'), options)
+
+            var markers = [
+                {
+                    coords: {lat:35.6762 ,lng:139.6503 },
+                    content: '<p>Tokyo</p>'
+                },
+                {
+                    coords: {lat:37.5665 ,lng:126.9780 },
+                    content: '<p>Seoul</p>'
+                },
+                {
+                    coords: {lat:13.0827 ,lng:80.2707 },
+                    content: '<p>Chennai</p>'
+                }
+
+            ]
+
+            for (var i=0; i<markers.length; i++){
+                addMarker(markers[i])
+            }
+
+            function addMarker(props){
+                var marker = new google.maps.Marker({
+                    position: props.coords,
+                    map: map
+                })
+
+                if(props.content){
+                    var infowindow = new google.maps.InfoWindow({
+                        content: props.content
+                    })
+
+                    marker.addListener('click', function(){
+                        infowindow.open(map, marker)
+                    })
+                }
+            }
+
+        }
+    </script>
+    <h1>MY GOOGLE MAP</h1>
+    <div id="map"></div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbJ7vElpv9sDWlFX9qFWjxbpBpldtwpSo&callback=initMap&libraries=&v=weekly"
+      async>
+    </script>
+</body>
+</html>
